@@ -65,4 +65,12 @@ public class BantumiViewModel extends ViewModel {
         }
         tablero.get(pos).setValue(v);
     }
+
+    public void clear() {
+        turno = new MutableLiveData<>(JuegoBantumi.Turno.turnoJ1);
+        tablero = new ArrayList<>(JuegoBantumi.NUM_POSICIONES);
+        for (int i = 0; i < JuegoBantumi.NUM_POSICIONES; i++) {
+            tablero.add(i, new MutableLiveData<>(0));
+        }
+    }
 }

@@ -25,6 +25,8 @@ public class MainActivity extends AppCompatActivity {
     JuegoBantumi juegoBantumi;
     BantumiViewModel bantumiVM;
     int numInicialSemillas;
+    boolean changed = false;
+    boolean began = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void onChanged(Integer integer) {
                             mostrarValor(finalI, juegoBantumi.getSemillas(finalI));
+                            if(began)  changed = true;
                         }
                     });
         }
@@ -60,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onChanged(JuegoBantumi.Turno turno) {
                         marcarTurno(juegoBantumi.turnoActual());
+                        if(!began) began = true;
                     }
                 }
         );
@@ -125,6 +129,22 @@ public class MainActivity extends AppCompatActivity {
                         .setMessage(R.string.aboutMessage)
                         .setPositiveButton(android.R.string.ok, null)
                         .show();
+                return true;
+
+            case R.id.opcReiniciarPartida:
+                RestartAlertDialog.Back callBack = () ->{
+                    changed = false;
+                    began = false;
+                    bantumiVM.clear();
+                    juegoBantumi.clear(JuegoBantumi.Turno.turnoJ1);
+                    crearObservadores();
+                };
+                if(changed){
+                    new RestartAlertDialog(R.string.tituloRestartDiálogo, R.string.msgRestartDiálogo, callBack).show(getSupportFragmentManager(), "DIALOGO_REINICIAR");
+                }
+                else
+                    callBack.onSuccess();
+
                 return true;
 
             // @TODO!!! resto opciones
