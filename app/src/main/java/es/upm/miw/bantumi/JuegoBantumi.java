@@ -2,6 +2,12 @@ package es.upm.miw.bantumi;
 
 import android.util.Log;
 
+import com.google.gson.Gson;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import es.upm.miw.bantumi.entity.TableroInformacionEntity;
 import es.upm.miw.bantumi.model.BantumiViewModel;
 
 public class JuegoBantumi {
@@ -198,8 +204,16 @@ public class JuegoBantumi {
      * @return juego serializado
      */
     public String serializa() {
-        // @TODO
-        return null;
+        List<TableroInformacionEntity> tablero = new ArrayList<>();
+        for (int i = 0; i < NUM_POSICIONES; i++) {
+            TableroInformacionEntity informacion = new TableroInformacionEntity();
+            informacion.posicion = i;
+            informacion.dato = getSemillas(i);
+            tablero.add(informacion);
+        }
+
+        Gson gson = new Gson();
+        return gson.toJson(tablero);
     }
 
     /**
@@ -208,6 +222,10 @@ public class JuegoBantumi {
      * @param juegoSerializado cadena que representa el estado completo del juego
      */
     public void deserializa(String juegoSerializado) {
-        // @TODO
+        Gson gson = new Gson();
+        TableroInformacionEntity[] informacionPartida = gson.fromJson(juegoSerializado, TableroInformacionEntity[].class);
+        for (TableroInformacionEntity i : informacionPartida) {
+            setSemillas(i.posicion, i.dato);
+        }
     }
 }

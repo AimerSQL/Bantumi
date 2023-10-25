@@ -15,12 +15,12 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.snackbar.Snackbar;
-import com.google.gson.Gson;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 
 import es.upm.miw.bantumi.entity.TableroInformacionEntity;
@@ -125,6 +125,28 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    public void recuperarPartida() {
+        try {
+            FileInputStream in = openFileInput("PartidaGuarda.json");
+            InputStreamReader inputStreamReader = new InputStreamReader(in);
+            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+            StringBuilder sb = new StringBuilder();
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                sb.append(line);
+            }
+            inputStreamReader.close();
+
+            String partidaGuardada = sb.toString();
+            juegoBantumi.deserializa(partidaGuardada);
+            Toast.makeText(MainActivity.this, R.string.títuloDiálogorecuperar, Toast.LENGTH_LONG).show();
+            changed = false;
+        } catch (Exception e) {
+            Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
+        }
+    }
+
+
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
 //            case R.id.opcAjustes: // @todo Preferencias
@@ -155,16 +177,7 @@ public class MainActivity extends AppCompatActivity {
                 return true;
 
             case R.id.opcGuardarPartida:
-                List<TableroInformacionEntity> tablero = new ArrayList<>();
-                for(int i = 0; i < JuegoBantumi.NUM_POSICIONES; i++){
-                    TableroInformacionEntity informacion = new TableroInformacionEntity();
-                    informacion.posicion = i;
-                    informacion.dato = juegoBantumi.getSemillas(i);
-                    tablero.add(informacion);
-                }
-
-                Gson gson = new Gson();
-                String jsonSave = gson.toJson(tablero);
+                String jsonSave = juegoBantumi.serializa();
 
                 try {
                     FileOutputStream outStream = openFileOutput("PartidaGuarda.json", MODE_PRIVATE);
@@ -176,6 +189,21 @@ public class MainActivity extends AppCompatActivity {
                 }
                 return true;
 
+
+            case R.id.opcRecuperarPartida:
+                RestartAlertDialog.Back callback = () -> {
+                    try {
+                        recuperarPartida();
+                    } catch (Exception e) {
+                        Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                };
+                if (changed) {
+                    new RestartAlertDialog(R.string.txtDialogoRecuperarTitulo, R.string.txtDialogoRecuperar, callback).show(getSupportFragmentManager(), "ALERT_DIALOG");
+                } else {
+                    callback.onSuccess();
+                }
+                return true;
             // @TODO!!! resto opciones
 
             default:
