@@ -38,4 +38,8 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-livedata-core:$lifecycle_version"
     //Gson
     implementation 'com.google.code.gson:gson:2.8.9'
+    //Room
+    def room_version = "2.3.0"
+    implementation "androidx.room:room-runtime:$room_version"
+    annotationProcessor "androidx.room:room-compiler:$room_version"
 }

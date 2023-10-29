@@ -8,7 +8,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDialog;
 import androidx.fragment.app.DialogFragment;
 
-public class FinalAlertDialog extends DialogFragment {
+    public class FinalAlertDialog extends DialogFragment {
 
     @NonNull
     @Override

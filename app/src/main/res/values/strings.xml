@@ -60,4 +60,15 @@
     <string name="títuloDiálogorecuperar">Partida Recuperada</string>
     <string name="txtDialogoRecuperarTitulo">Has Iniciado la partida</string>
     <string name="txtDialogoRecuperar">¿Quieres reiniciar otra partida?</string>
+
+    <!-- Mejores Resultados -->
+    <string name="rvResultDateTitle">Fecha</string>
+    <string name="rvResultWinnerTitle">Ganador</string>
+    <string name="rvResultWinnerSeedNumberTitle">Puntuacion</string>
+    <string name="borrarTodo">quieres borrar los resultados</string>
+
+    <!-- Activity Setting -->
+    <string name="txtNamePlayer1">Nombre de Jugador 1:</string>
+    <string name="txtNamePlayer2">Nombre de Jugador 2:</string>
+    <string name="txtSave">Guardar</string>
 </resources>
