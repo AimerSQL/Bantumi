@@ -293,8 +293,8 @@ public class MainActivity extends AppCompatActivity {
 
         // @TODO guardar puntuación
         SettingEntity settingEntity = BantumiPrefs.getSetting(this);
-        String jugadorName1 = (settingEntity.playerOneName != null && !settingEntity.playerOneName.isEmpty()) ? settingEntity.playerOneName : "Jugador1";
-        String jugadorName2 = (settingEntity.playerTwoName != null && !settingEntity.playerTwoName.isEmpty()) ? settingEntity.playerTwoName : "Jugador2";
+        String jugadorName1 = (settingEntity.playerOneName != null && !settingEntity.playerOneName.isEmpty()) ? settingEntity.playerOneName : tvJugador1.toString();
+        String jugadorName2 = (settingEntity.playerTwoName != null && !settingEntity.playerTwoName.isEmpty()) ? settingEntity.playerTwoName : tvJugador2.toString();
         Puntuacion puntuacion = new Puntuacion(jugadorName1, juegoBantumi.getSemillas(6), jugadorName2, juegoBantumi.getSemillas(13));
         puntuacionRepository.insert(puntuacion);
         // terminar
