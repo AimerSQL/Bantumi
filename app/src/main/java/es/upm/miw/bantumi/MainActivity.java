@@ -41,9 +41,6 @@ public class MainActivity extends AppCompatActivity {
     boolean changed = false;
     boolean began = false;
     PuntuacionRepository puntuacionRepository;
-    PuntuacionDao puntuacionDao;
-
-    PuntuacionDatabase puntuacionDatabase;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,9 +51,6 @@ public class MainActivity extends AppCompatActivity {
         bantumiVM = new ViewModelProvider(this).get(BantumiViewModel.class);
         juegoBantumi = new JuegoBantumi(bantumiVM, JuegoBantumi.Turno.turnoJ1, numInicialSemillas);
         crearObservadores();
-        //Create Database
-        puntuacionDatabase = PuntuacionDatabase.getDatabase(this);
-        puntuacionDao = puntuacionDatabase.puntuacionDao();
     }
 
     /**
