@@ -11,3 +11,4 @@ Nuestra aplicación Bantumi incluye las siguientes funcionalidades:
 * Registar partida: se guardará en base de datos Room el resultado de la pratida que incluye el nombre de jugador, la fecha que fue la partida y las semillas que quedaron en el almacén.
 * Mejores puntuaciones: muestra las diez mejores puntuaciones de los jugadores ordenadas por la cantidad de semillas en el almacén.
 * Ajustes: permite que los jugadores pueden poner sus nombres.
+
